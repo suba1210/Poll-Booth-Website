@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Vollkorn:wght@800&display=swap" rel="stylesheet">
+    <script src="https://kit.fontawesome.com/a076d05399.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Register</title>
+</head>
+<style>
+    body{
+        max-width: 450px;
+        margin:auto;
+        font-family: 'Vollkorn', serif;
+    }
+    form {
+        border: 3px solid #534c4c;
+        max-width: 420px;
+        margin: auto;
+        padding:20px;
+        background-color: #f2f2f2;
+    }
+    input[type=text], input[type=password],input[type=email]{
+      width: 100%;
+      padding: 12px 20px;
+      margin: 8px 0;
+      border: 1px solid #ccc;
+      box-sizing: border-box;
+    }
+    button[type=submit] {
+      background-color: #4CAF50;
+      color: white;
+      padding: 14px 20px;
+      margin: 8px 0;
+      border: none;
+      cursor: pointer;
+      width: 100%;
+      font-family: 'Vollkorn', serif;
+    }
+    label{
+        font-weight: bolder;
+    }
+    #register{
+        float: right;
+        display:inline;
+    }
+    #message {
+  display:none;
+  background: #f1f1f1;
+  color: #000;
+  position: relative;
+  padding: 10px;
+}
+
+#message p {
+  padding: 10px 35px;
+  font-size: 15px;
+}
+
+
+.valid {
+  color: green;
+}
+
+.valid:before {
+  position: relative;
+  left: -35px;
+  content: "✔";
+}
+
+.invalid {
+  color: red;
+}
+
+.invalid:before {
+  position: relative;
+  left: -35px;
+  content: "✖";
+}
+    
+</style>
+    
+<body>
+    <div class='container'>
+    <h1 style="text-align: center;"><i class="fas fa-clipboard-list"></i>&nbsp&nbspRegister to Poll Booth!</h1>
+
+    <div>
+        <form action='/register' method="POST">
+            <%- include('../partials/flash') %>
+            <label for="name"><i class="fas fa-user-tie"></i>&nbsp&nbspUser Name : </label>
+            <input type="text" id="name" name="username" placeholder="Add a unique name..." required><br><br>
+
+            <label for="email"><i class="fas fa-envelope"></i>&nbsp&nbspEmail : </label>
+            <input type="email" id="email" name="email" placeholder="Enter email to send notifications" required><br><br>
+
+
+            <label for="password"><i class="fas fa-lock"></i>&nbsp&nbspPassword : </label>
+            <input type="password" id="password" name="password" placeholder="Enter Password"  pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" title="Must contain at least one number and one uppercase and lowercase letter, and at least 8 or more characters" required>
+
+            <div id="message">
+                <p style='float:left'>Password must contain the following:</p>
+                <p id="letter" class="invalid">A <b>lowercase</b> letter</p>
+                <p id="capital" class="invalid">A <b>uppercase</b> letter</p>
+                <p id="number" class="invalid">A <b>number</b></p>
+                <p id="length" class="invalid">Minimum <b>8 characters</b></p>
+            </div>
+            <br><br>
+            <label for="role"><i class="fas fa-briefcase"></i>&nbsp&nbspChoose your role:</label>
+            <select id="role" name="role">
+              <option value="Student">Student</option>
+              <option value="Teacher">Teacher</option>
+              <option value="CR">CR</option>
+            </select><br><br>
+
+
+            <span>Gender:</span><br><br>
+            <input type="radio" id="male" name="gender" value="male" required>
+            <label for="male">MALE</label>            
+            <input type="radio" id="female" name="gender" value="female" required>
+            <label for="female">FEMALE</label><br>  
+            <br>
+            <span>Do you want Poll Booth to send you email notifications ?</span><br><br>
+            <input type="radio" id="yes" name="notify" value="yes" required>
+            <label for="yes">Yes</label>
+            <input type="radio" id="no" name="notify" value="no" required>
+            <label for="no">No</label>
+            <br><br>
+
+            <button type="submit">REGISTER</button>
+        </form>
+    </div><BR>
+        <span id='register'>Already an user of Poll Booth ? <a href='/login'>LOGIN</a></span>
+    </div>
+    <script>
+        var myInput = document.getElementById("password");
+        var letter = document.getElementById("letter");
+        var capital = document.getElementById("capital");
+        var number = document.getElementById("number");
+        var length = document.getElementById("length");
+        myInput.onfocus = function() {
+          document.getElementById("message").style.display = "block";
+        }        
+        myInput.onblur = function() {
+          document.getElementById("message").style.display = "none";
+        }       
+        myInput.onkeyup = function() {
+          
+          var lowerCaseLetters = /[a-z]/g;
+          if(myInput.value.match(lowerCaseLetters)) {  
+            letter.classList.remove("invalid");
+            letter.classList.add("valid");
+          } else {
+            letter.classList.remove("valid");
+            letter.classList.add("invalid");
+          }
+          var upperCaseLetters = /[A-Z]/g;
+          if(myInput.value.match(upperCaseLetters)) {  
+            capital.classList.remove("invalid");
+            capital.classList.add("valid");
+          } else {
+            capital.classList.remove("valid");
+            capital.classList.add("invalid");
+          }
+          var numbers = /[0-9]/g;
+          if(myInput.value.match(numbers)) {  
+            number.classList.remove("invalid");
+            number.classList.add("valid");
+          } else {
+            number.classList.remove("valid");
+            number.classList.add("invalid");
+          }
+          if(myInput.value.length >= 8) {
+            length.classList.remove("invalid");
+            length.classList.add("valid");
+          } else {
+            length.classList.remove("valid");
+            length.classList.add("invalid");
+          }
+        }
+        </script>
+</body>
+</html>

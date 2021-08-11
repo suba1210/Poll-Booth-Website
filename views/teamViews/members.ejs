@@ -1,0 +1,42 @@
+<% layout('layouts/boilerPlate') %>
+<style>
+    .main{
+        font-family: 'Vollkorn', serif;
+    }
+    li{
+        margin:10px;
+    }
+    #btn{
+        background-color:#828afd;
+        color: white;
+        padding:5px;
+        border: none;
+        cursor: pointer;
+        width: fit-content;
+        font-family: 'Vollkorn', serif;
+    }
+    a{
+        text-decoration: none;
+    }
+</style>
+
+<div class='main'>
+<% if(teamMembers.length==0){ %> 
+    <p style="text-align: center;font-size: larger;color:#646eff">Invite people to join your team!</p><br><br>
+
+<% } else { %> 
+    <h2 style='color:#646eff;'>Members</h2>
+<ol>
+    <%for(member of teamMembers){%> 
+        <li><%=member.username%></li>
+    <%}%> 
+</ol><br><br>
+
+
+
+<% } %> 
+
+<a href="/teams/<%=team._id%>"><div id='btn'>Back to your team</div></a>
+
+
+</div>

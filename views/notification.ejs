@@ -1,0 +1,89 @@
+<% layout('layouts/boilerPlate') %>
+
+<style>
+
+    .main{
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+    }
+    li{
+        list-style: none;
+        margin:20px ;
+        border:2px solid rgb(117, 116, 116);
+        padding:15px 20px;
+    }
+    a{
+        text-decoration: none;
+    }
+    #btn{
+        background-color:#a0a0fc;
+        color: white;
+        padding:8px 13px;
+        border: none;
+        cursor: pointer;
+        width: fit-content;
+        font-family: 'Vollkorn', serif;
+    }
+    #clearbtn{
+        background-color:#828afd;
+        color: white;
+        padding:8px 13px;
+        border: none;
+        cursor: pointer;
+        width: fit-content;
+        font-family: 'Vollkorn', serif;
+
+    }
+    .clearmain{
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        align-items: center;
+    }
+    .clearmain>a{
+        margin:1.5em;
+    }
+    #sideHide{
+        display: none;
+    }
+
+
+
+</style>
+
+<div style='font-family: Vollkorn, serif;'>
+
+<h1 style='color:#646eff;text-align: center;'>Notifications</h1>
+
+<% if(currentUser.invites.length==0 && currentUser.joinedMembers.length==0 ){ %>
+    
+    <h2 style='color:#0213fa;text-align: center;'>You don't have any notifications!</h2>
+
+<% } else { %> 
+
+<div class='main'>
+<ul>
+    <% for(let i=0;i<currentUser.invites.length;i++){ %>
+        <li><%=currentUser.invites[i].admin.username%> invited you to join the team '<%=currentUser.invites[i].name%>' &nbsp-&nbsp <a href='/members/notification/<%=currentUser.id%>/accept/<%=currentUser.invites[i]._id%>'><button id='btn'>Join Team</button></a> &nbsp&nbsp <a href='/members/notification/<%=currentUser.id%>/reject/<%=currentUser.invites[i]._id%>'><button id='btn'>Delete invite</button></a></li>
+    <% } %> 
+    <% for(let i=0; i<currentUser.joinedMembers.length;i++){ %>
+        <li> <%=currentUser.joinedMembers[i]%> </li>
+    <% } %> 
+</ul>
+</div>
+
+<% } %> 
+
+
+<div class='clearmain'>
+
+<a href='/member/clear/notification'><button id='clearbtn'>Clear all notifications</button></a>
+
+<a href='/member/clear/invites'><button id='clearbtn'>Clear all invites</button></a>
+
+</div>
+
+
+</div>

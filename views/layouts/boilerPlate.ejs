@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="/css/dashboard.css">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://fonts.googleapis.com/css2?family=Vollkorn:wght@500&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cardo:wght@700&display=swap" rel="stylesheet">
+    <script src="https://kit.fontawesome.com/a076d05399.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <title>Poll Booth</title>
+</head>
+
+<body>
+    <div class="header">
+        <div id="openbtn" onclick="openNav()">☰</div>
+        <div><i class="fas fa-poll"></i></div> 
+        <div>POLL BOOTH</div>
+        <div class="logout" ><a href="/logout"><i class="fas fa-sign-out-alt"></i>Logout</a></div>
+    </div>
+    
+        <div class="container">
+            <div class=containerLeft>
+            <div id='hide' class="sidebar" style="margin-bottom:10px">
+
+            <% if(currentUser.gender ==="female"){ %>
+                <img class="avatar" src="/assets/woman.jpg">
+            <% } else{%>
+                <img class="avatar" src="/assets/man.jpg">
+            <% } %> 
+            
+            <p style="text-align:center;font-weight:bold;font-size:20px;margin:0"><%=currentUser.username %></p>
+            <p style="text-align:center;font-weight:bold;font-size:20px;text-decoration: underline;color:brown"><%=currentUser.role%></p>
+            <a id="teamsLink" href="/teams"><i class="fas fa-users"></i> Teams</a>
+            <a id="newLink" href="/teams/new"><i class="fas fa-user-plus"></i> Create Team</a>
+            <% if(currentUser.inviteGot == false){%> 
+            <a href="/member/notification"><i class="fas fa-bell"></i> Notifications</a>
+            <%} else { %>
+            <a style='color:brown'  href="/member/notification"><i class="fas fa-bell"></i> Notifications</a>
+            <%}%> 
+            <a href="/profile"><i class="fas fa-user"></i> Profile</a>
+            </div>
+            <div id="mySidepanel" class="sidepanel">
+                <a class="closebtn" onclick="closeNav()">×</a>
+                <% if(currentUser.gender ==="female"){ %>
+                    <img class="avatar" src="/assets/woman.jpg">
+                <% } else{%>
+                    <img class="avatar" src="/assets/man.jpg">
+                <% } %> 
+                
+                <p style="text-align:center;font-weight:bold;font-size:20px;"><%=currentUser.username %></p>
+                <p style="text-align:center;font-weight:bold;font-size:20px;text-decoration: underline;color:brown"><%=currentUser.role%></p>
+                <a id="teamsLink" href="/teams"><i class="fas fa-users"></i> Teams</a>
+                <a  id="newLink"  href="/teams/new"><i class="fas fa-user-plus"></i> Create Team</a>
+                <% if(currentUser.inviteGot == false){%> 
+                    <a href="/member/notification"><i class="fas fa-bell"></i> Notifications</a>
+                <%} else { %>
+                    <a style='color:brown'  href="/member/notification"><i class="fas fa-bell"></i> Notifications</a>
+                <%}%> 
+                <a href="/profile"><i class="fas fa-user"></i> Profile</a>
+            </div>   
+            </div>
+            <div class="containerRight">
+                <%- include('../partials/flash') %>
+                <%- body %>
+            </div>
+        </div>   
+        
+        
+    
+    <script>
+        function openNav() {
+            document.getElementById("mySidepanel").style.width = "250px";
+        }
+        function closeNav() {
+            document.getElementById("mySidepanel").style.width = "0";
+        }
+    </script>
+
+
+
+</body>
+</html>

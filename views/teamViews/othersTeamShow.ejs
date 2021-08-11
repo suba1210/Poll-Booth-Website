@@ -1,0 +1,110 @@
+<% layout('layouts/boilerPlate') %>
+
+<style>
+    #teamname{
+        text-align: center;
+        color:#646eff;
+        margin-bottom: 0;
+    }
+    .main{
+        font-family: 'Vollkorn', serif;
+    }
+    #btn{
+        background-color:#828afd;
+        color: white;
+        padding:12px;
+        border: none;
+        cursor: pointer;
+        width: fit-content;
+        font-family: 'Vollkorn', serif;
+        border-radius: 8px;
+    }
+    #adminname{
+        text-transform:uppercase;
+        font-weight: bold;
+        color:#4e5afd;
+        float:right;
+    }
+    a{
+        text-decoration: none;
+    }
+    .rowtwo>a{
+        display:inline-block;
+    }
+    .eachteam{
+        box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+        padding:20px;
+        background-color: #b0dbf5;
+        border-radius: 8px;
+        margin: 20px 0 20px 20px;
+        font-family: 'Vollkorn', serif;
+        font-size: 20px;
+    }
+    .responsivemin{
+        display:none;
+    }
+    @media(max-width:600px){
+        .responsivemax{
+            display:none;
+        }
+        .responsivemin{
+            display:flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        font-family: 'Vollkorn', serif;
+        }
+    }
+ 
+    
+</style>
+
+    <div class='main'>
+    <h1 id='teamname'><%= team.name %></h1>
+    <p style='text-align: center;color:#0492eb;margin:0'><%= team.description%></p>
+
+    <div class='responsivemax' >
+    <div id='adminname'>ADMIN OF THE TEAM : <%=team.admin.username%></div> 
+    <a style='display: inline-block;' href='/teams/<%=team._id%>/members'><div id='btn'><i class="fas fa-user-friends"></i>&nbsp&nbspSHOW MEMBERS</div></a>
+    <br>
+    </div>
+
+
+    <div class='responsivemin' >
+            <br><div style='text-transform:uppercase;font-weight: bold;color:#4e5afd;text-align: center;'>ADMIN OF THE TEAM : <%=team.admin.username%></div> <br>
+        <a href='/teams/<%=team._id%>/members'><div id='btn'><i class="fas fa-user-friends"></i>&nbsp&nbspSHOW MEMBERS</div></a>
+    </div>
+
+
+    <hr style='height:1.5px;background: rgb(17, 16, 17);'><br>
+
+    
+    <% if(team.polls.length>=1){ %>
+
+
+        <h2 style='color:#646eff'>Your Polls : </h2>
+        <% for(poll of team.polls){%>
+
+            <% if(poll.deadline && poll.isPresent==true) { %> 
+
+                <% let deadlineDate= poll.deadline %> 
+                <% let date = new Date(deadlineDate),month = ("0" + (date.getMonth() + 1)).slice(-2),day = ("0" + date.getDate()).slice(-2); %> 
+                <% date = [day,month,date.getFullYear()].join("-") %> 
+                <% let time = new Date(deadlineDate) , hour = ("0" + time.getHours()).slice(-2) ,minute = ("0" + time.getMinutes()).slice(-2) %> 
+                <% time = [hour, minute].join(":") %> 
+                <a  style='color:#551A8B' href="/teams/<%=team._id%>/poll/show/<%=poll._id%>"><div class='eachteam'><%=poll.title%><span style='float:right'>Deadline : <%=date%> at <%=time%>   </span></div></a>
+    
+                <% } else { %>
+                    
+                    <a  style='color:#551A8B' href="/teams/<%=team._id%>/poll/show/<%=poll._id%>"><div class='eachteam'><%=poll.title%></div></a>
+    
+                <% } %> 
+
+        <% } %>  
+
+    <% }else{%> 
+        <p style="text-align: center;font-size: larger;color:#646eff">No Polls have created by the admin yet!</p><br><br>
+    <% } %> 
+
+    </div>
+    

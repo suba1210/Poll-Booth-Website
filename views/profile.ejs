@@ -1,0 +1,64 @@
+<% layout('layouts/boilerPlate') %>
+<style>
+    .main{
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+    }
+    .card {
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+  max-width: 300px;
+  margin: auto;
+  text-align: center;
+  font-family: arial;
+}
+#btn{
+        background-color:#a0a0fc;
+        color: white;
+        padding:8px 13px;
+        border: none;
+        cursor: pointer;
+        width: fit-content;
+        font-family: 'Vollkorn', serif;
+    }
+
+.title {
+  color: grey;
+  font-size: 18px;
+}
+</style>
+
+<div style='font-family: Vollkorn, serif;' >
+<br><br>
+<div class='main'>
+
+
+        <% if(currentUser.gender ==="female"){ %>
+            <img class="avatar" src="/assets/woman.jpg">
+        <% } else{%>
+            <img class="avatar" src="/assets/man.jpg">
+        <% } %> 
+
+        <h1 style='margin-bottom: 0;'><%=currentUser.username%></h1>
+        <p style='margin:20px' class="title"><%=currentUser.email%> </p>
+        <br><br>
+        <p>Email Settings</p>
+        <form action='/notify' method="POST" >
+          <span>Do you want Poll Booth to send you email notifications ?</span><br><br>
+          <div class='main'>
+          <div>
+          <input type="radio" id="yes" name="notify" value="yes" required>
+          <label for="yes">Yes</label>
+          <input type="radio" id="no" name="notify" value="no" required>
+          <label for="no">No</label><br><br>
+          </div>
+          <div>
+          <button id='btn' type='submit'>Save Preference!</button>
+        </div>
+        </div>
+        </form>
+
+
+</div>
+</div>

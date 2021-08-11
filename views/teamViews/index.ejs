@@ -1,0 +1,43 @@
+<% layout('layouts/boilerPlate') %> 
+<style>
+    #teamsLink{
+        color:white;
+    }
+    .main{
+        display:flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        font-family: 'Vollkorn', serif;
+    }
+    .teamcontainer a{
+        text-decoration: none;
+        color: #551A8B;
+
+    }
+    .eachteam{
+        box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+        padding:20px;
+        background-color: #b0dbf5;
+        border-radius: 8px;
+        margin: 20px 0 20px 20px;
+        font-family: 'Vollkorn', serif;
+        font-size: 20px;
+    }
+</style>
+
+    <%if(teams.length!=0){%> 
+        <h2 style='color:#646eff'>Your Teams</h2>
+        <div class='teamcontainer'>
+        <%for(team of teams){%> 
+            <a href="/teams/<%=team._id %>"><div class='eachteam'><%=team.name%></div></a>
+        <%}%>
+        </div> 
+    <%} else { %>
+        <div class="main">
+        <p style="text-align: center;font-size: larger;color:#646eff">Create team or join teams to display it here </p><br><br>
+        <img class='teamImage' src='/assets/teams.jpg'>
+        <br><br>
+        </div>
+    <% } %> 
+

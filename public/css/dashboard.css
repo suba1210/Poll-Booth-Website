@@ -1,0 +1,146 @@
+body{
+    margin:0;
+    box-sizing: border-box;
+    max-width: 100%;
+    overflow-x: hidden;
+    
+}
+.header{
+    width: 100%;
+    background-color: #7B83EB;    
+    font-size: 1.5em;
+    padding:15px; 
+    height:35px;
+    font-family: 'Vollkorn', serif;
+    font-weight: bolder;
+}
+.header>div{
+    display:inline;
+}
+.container{
+  display:flex;
+  flex-direction: row;
+}
+.containerLeft{
+  background-color: #7B83EB;
+}
+.containerRight{
+  max-width: 970px;
+  width:950px;
+  padding:0em 1em 1em 1.5em ;
+}
+.sidebar {
+    height:100%;
+    width: 220px;
+    left: 0;
+    background-color: #7B83EB;
+    padding:20px;
+    font-family: 'Vollkorn', serif;
+  }
+  
+  .sidebar a {
+    padding: 20px 0 0 8px ;
+    text-decoration: none;
+    font-size: 27px;
+    color: black;
+    display: block;
+  }
+  
+  .sidebar a:hover {
+    color: #f1f1f1;
+  }
+  .sidebar a:active{
+    color: #f1f1f1;
+  }
+  .avatar{
+      margin: 0 auto;
+      width:200px;
+      height:200px;
+      border-radius: 50%;
+  }
+  .logout{
+    float:right;  
+  }
+  .logout:hover{
+    color: #f1f1f1;
+  }
+  .logout a{
+    text-decoration: none;
+    color:black;
+    padding:20px;
+  }
+  .logout a:hover{
+    color: #a70303;
+  }
+  #openbtn{
+    display:none;
+  }
+  .sidepanel  {
+    width: 0;
+    position: fixed;
+    z-index: 1;
+    height: 100%;
+    left: 0;
+    background-color: #7B83EB ;
+    overflow-x: hidden;   
+    transition: 0.5s;
+    padding-top: 60px;
+    display:none;
+    font-family: 'Vollkorn', serif;
+  }
+  
+  .sidepanel a {
+    padding: 8px 8px 8px 32px;
+    text-decoration: none;
+    font-size: 25px;
+    color: #111;
+    display: block;
+    transition: 0.3s;
+  }
+  
+  .sidepanel a:hover {
+    color: #f1f1f1;
+  }
+  
+  .sidepanel .closebtn {
+    position: absolute;
+    top: 0;
+    right: 25px;
+    font-size: 36px;
+    cursor: pointer;
+  }
+  
+  #openbtn {
+    font-size: 20px;
+    cursor: pointer;
+    background-color: #111;
+    color: white;
+    padding:7px 13px;
+    border: none;
+  }
+  
+  #openbtn:hover {
+    background-color:#444;
+  }
+
+
+  @media(max-width:500px){
+    .logout{
+        font-size:15px ;
+    }
+    .header{
+        font-size: 18px;
+    }
+  }
+  @media(max-width:800px){
+    #openbtn{
+      display:inline;
+      cursor: pointer;
+    }
+    .sidebar{
+      display: none;
+    }
+    .sidepanel{
+      display:block;
+    }
+  }

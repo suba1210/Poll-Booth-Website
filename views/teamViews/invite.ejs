@@ -1,0 +1,48 @@
+<% layout('layouts/boilerPlate') %>
+
+<style>
+    .user{
+        display:flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        margin:1.5em;
+    }
+    #btn{
+        background-color:#828afd;
+        color: white;
+        padding:5px;
+        border: none;
+        cursor: pointer;
+        width: fit-content;
+        font-family: 'Vollkorn', serif;
+        /* border-radius: 8px; */
+    }
+    a{
+        text-decoration: none;
+    }
+</style>
+
+
+
+<div style='font-family:Vollkorn, serif;'>
+    <h2 style='color:#646eff;text-align: center;'>Invite members to your team!</h2>
+
+<% if(allUninvitedUsers.length == 0){%>
+    <p style="text-align: center;font-size: larger;color:#646eff">No people left to invite! </p><br><br>
+<% }else { %> 
+<% allUninvitedUsers.forEach((user)=>{%>
+    
+    <div class="user">
+
+        <span>
+            <span style='font-weight: bold;'><%= user.username %></span>&nbsp&nbsp  
+            &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp<a href="/teams/invite/<%=team._id%>/<%= user.id %>"><span id='btn'>Invite</span></a>  
+        </span>
+
+    </div>
+<%})%>
+<% } %>
+<br>
+<a href="/teams/<%=team._id%>"><div id='btn'>Back to your team</div></a>
+</div>

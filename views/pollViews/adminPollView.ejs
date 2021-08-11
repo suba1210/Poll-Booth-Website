@@ -1,0 +1,120 @@
+<% layout('layouts/boilerPlate') %>
+<style>
+    .main{
+        display:flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+    }
+    #btn{
+        background-color:#828afd;
+        color: white;
+        padding:10px 15px;
+        border: none;
+        cursor: pointer;
+        width: fit-content;
+        font-family: 'Vollkorn', serif;
+    }
+</style>
+
+<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+
+
+<div style="font-family: 'Vollkorn', serif;">
+<h1 style='color:#646eff;text-align: center;'><%=poll.title%></h1>
+
+
+<div class='main'>
+<h2 style='color:#0213fa;'>Question : <%=poll.question%></h2>
+<ul>
+    <%for(let i=0;i<poll.options.length;i++){%>
+        <li><%=`Option ${i+1}: `%> &nbsp <%=poll.options[i] %></li>
+    <% } %> 
+</ul>
+</div>
+
+
+
+<%if(poll.isPresent==true){%>
+
+    <div style='display: flex;justify-content: center;align-items: center; font-weight: bold;'>
+        <a style='display: inline-block;' href='/teams/<%=team._id%>/poll/endpoll/<%=poll._id%>'><button id='btn'>END POLL AND SHOW RESULTS</button></a>
+    </div>
+
+<% } else{ %>
+
+    <div class='main'>
+    <h2 style='color:#0213fa;'>Results of the poll: </h2>
+    <ul>        
+        <% let options = poll.options %>
+        <% let results= poll.results %> 
+        <% for(let i=0;i<options.length;i++){ %>
+            <% let count=0 %> 
+            <% for(let j=0;j<results.length;j++){ %> 
+                <% if(options[i]==results[j]){ %>
+                    <% count++ %>
+                <% } %> 
+            <% } %> 
+            <li><%=options[i]%> - <%=count%></li>           
+        <% } %> 
+    </ul>
+
+    <% let arr %>
+    <% arr = [] %>
+    <% let brr %>
+    <% brr = poll.options %> 
+    <% let num %>
+    <% num = poll.options.length %>
+    <% for(let i=0;i<poll.options.length;i++){ %>
+        <% arr[i]=0 %>
+        <% for(let j=0 ; j<poll.results.length ; j++){ %>
+            <% if(poll.results[j]== poll.options[i]){ %>
+                <% arr[i]++ %> 
+            <% } %> 
+        <% } %> 
+    <% } %> 
+        <script>
+            let arrayFrequency = '<%-arr%>';
+            arrayFrequency = JSON.parse("[" + arrayFrequency + "]");
+            let arrayOptions = '<%-brr%>';
+            arrayOptions = arrayOptions.split(",");
+            let totalNum = '<%-num%>'
+            let arr = [['Options','No. of votes']];
+            for(let i=0;i<totalNum;i++){
+                arr.push([ arrayOptions[i],arrayFrequency[i] ]);
+                
+            }
+            console.log(arr);
+            google.charts.load('current', {'packages':['corechart']});
+            google.charts.setOnLoadCallback(drawChart);
+            function drawChart() {
+
+            var data = google.visualization.arrayToDataTable(arr);
+            
+            var options = {
+              title:'Your Poll Results'
+            };
+            
+            var chart = new google.visualization.BarChart(document.getElementById('myChart'));
+              chart.draw(data, options);
+            }
+
+        </script>
+
+        <div id="myChart" style="width:100%; max-width:620px; height:500px;"></div>
+
+    </div>
+
+<% } %> 
+
+
+
+    <br>
+    <div style='display: flex;justify-content: center;align-items: center; font-weight: bold;'>
+        <a href='/teams/<%=team._id%>'><BUTTON id='btn'>Back to your Team</BUTTON></a>
+    </div>
+
+</div>
+
+
+ 

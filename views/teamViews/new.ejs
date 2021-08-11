@@ -1,0 +1,75 @@
+<% layout('layouts/boilerPlate') %>
+<style>
+    #newLink{
+        color:white;
+    }
+    .main{
+        display:flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+        font-family: 'Vollkorn', serif;
+        font-weight: bold;
+    }
+    .createteam{
+        max-width: 800px;
+        width:600px;
+        margin: auto;
+        padding:20px;
+    }
+input{
+  width: 100%;
+  padding: 12px 20px;
+  margin: 8px 0;
+  border: 2px solid #6872fc;
+  box-sizing: border-box;
+}
+textarea{
+    width: 100%;
+    border: 2px solid #6872fc;
+    padding: 8px 8px;
+    margin: 8px 0;
+}
+input:focus{
+background-color: #b0dbf5;
+}
+button[type=submit] {
+  background-color:#828afd;
+  color: white;
+  padding: 14px 20px;
+  margin: 8px 0;
+  border: none;
+  cursor: pointer;
+  width: 40%;
+  font-family: 'Vollkorn', serif;
+  font-weight: bold;
+  
+}
+@media(max-width:770px)and(min-width:499px) {
+    .createteam{
+        width:500px;
+        padding:0;
+    }
+}
+@media(max-width:500px){
+    .createteam{
+        width:300px;
+        padding:0;
+    }
+}
+
+</style>
+    <div class="main">
+    <h2 style='color:#646eff'>Create New Team</h2>
+    <form class="createteam" action="/teams" method="POST">
+        <div>
+            <label for="name"><i class="fas fa-users"></i>&nbsp&nbspName of the Team :</label><br>
+            <input type="text" id="name" name="name" placeholder="Add name for team..." required>
+        </div><br>
+        <label for="description"><i class="fas fa-file-alt"></i>&nbsp&nbspDescription : </label><br>
+        <div>
+            <textarea type="text" id="description" rows="5"  name="description" placeholder="let people know what this team is all about" required></textarea>
+        </div><br>
+        <center><button type='submit'>Create Team</button></center>
+    </form>
+    </div>

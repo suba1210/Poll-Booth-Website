@@ -1,0 +1,138 @@
+<% layout('layouts/boilerPlate') %>
+
+<style>
+    .main{
+        display:flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+        font-family: 'Vollkorn', serif;
+        font-weight: bold;
+    }
+    .createteam{
+        max-width: 800px;
+        width:600px;
+        margin: auto;
+        padding:20px;
+    }
+    input{
+        width: 100%;
+        padding: 12px 20px;
+        margin: 8px 0;
+        border: 2px solid #6872fc;
+        box-sizing: border-box;
+    }
+    #btn{
+        background-color:#828afd;
+        color: white;
+        padding:10px 15px;
+        border: none;
+        cursor: pointer;
+        width: fit-content;
+        font-family: 'Vollkorn', serif;
+    }
+    .addremove{
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        align-items: center;
+    }
+    .addremove>div{
+        margin:1.5em;
+    }
+
+</style>
+
+
+<div class='main'>
+<form class='createteam' action='/teams/<%=team._id%>/poll/info' method="POST">
+    <label for="title">Title<span style='color:red'>*</span></label>
+    <input type="text" id='title' placeholder="Title" name='title' required>
+    <br><br>
+    <label for="question">Question<span style='color:red'>*</span></label>
+    <input type="text" placeholder="Question" id='question' name='question' required>
+    <br><br>
+    <div id='pollForm'>
+        <label>Options<span style='color:red'>*</span></label>
+        <input type='text' name='option[option1]' placeholder="option1" required><br><br>
+    </div>
+
+    
+    <div class='addremove'>
+        <div>
+            <button  id='btn' id='addOptionBtn' type="button"   onclick="addOption()">ADD OPTION</button>
+        </div>
+        <div id="removeBtnId" style="display:none">
+            <button  id='btn' id='removeOptionBtn'  type="button"  onclick="removeOption()">REMOVE OPTION</button>
+        </div>
+    </div>
+
+
+
+    <% let d = new Date()%>
+    <% let n = d.toISOString()%>
+    <% n= n.slice(0,-8)%>
+    <label for='deadline'>Deadline</label>   
+    <input id='deadline' type="datetime-local" name='deadline' onchange="return dateValidation()" min=<%=n%>><br><br>
+
+
+    <div style='display: flex;justify-content: center;align-items: center; font-weight: bold;'>
+        <button id= 'btn' type='submit'>CREATE POLL</button>
+    </div>
+</form>
+</div>
+<script>
+    function addOption(){       
+        let form = document.getElementById('pollForm');
+        let allOptions = form.querySelectorAll('input');
+        let i = ((allOptions.length));
+        i++;
+        let br = document.createElement("br");
+        let span = document.createElement('span');
+        let l = document.createElement('input');
+        l.setAttribute('type','text');
+        l.setAttribute('name',`option[option${i}]`);
+        l.setAttribute('placeholder',`option${i}`);
+        l.required = true;
+        form.appendChild(l);
+        form.appendChild(br.cloneNode());
+        form.appendChild(br.cloneNode());
+        let form1 = document.getElementById('pollForm');
+        let allOptions1 = form1.querySelectorAll('input');
+       if(allOptions1.length>1){
+           document.getElementById('removeBtnId').style.display='block';
+       }
+       
+    }
+    
+    function removeOption(){
+        let form = document.getElementById('pollForm');
+        let last = form.lastChild;
+        form.removeChild(last);
+        let last1 = form.lastChild;
+        form.removeChild(last1);
+        let allOptions = form.querySelectorAll('input');
+        form.removeChild(allOptions[((allOptions.length)-1)]);
+        let form1 = document.getElementById('pollForm');
+        let allOptions1 = form1.querySelectorAll('input');
+       if(allOptions1.length<2){
+           document.getElementById('removeBtnId').style.display='none';
+       }
+    }
+
+    function dateValidation(){
+            let deadline = document.getElementById('deadline');
+            let deadlineDate = deadline.value;
+            if(deadlineDate!=''){
+                let now = Date.now();
+                let deadlineFormat = new Date(deadlineDate);
+            if(deadlineFormat<now){
+                alert('Deadline must be greater than present time!');
+                deadline.value='';
+                return false;
+            }
+            }
+        }
+
+
+</script>

@@ -1,0 +1,94 @@
+<% layout('layouts/boilerPlate') %>
+    <style>
+        .main{
+            display:flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            font-family: 'Vollkorn', serif;
+            font-weight: bold;
+        }
+        .createteam{
+            max-width: 800px;
+            width:600px;
+            margin: auto;
+            padding:20px;
+        }
+    input{
+      width: 100%;
+      padding: 12px 20px;
+      margin: 8px 0;
+      border: 2px solid #6872fc;
+      box-sizing: border-box;
+    }
+    textarea{
+        width: 100%;
+        border: 2px solid #6872fc;
+        padding: 8px 8px;
+        margin: 8px 0;
+    }
+    input:focus{
+    background-color: #b0dbf5;
+    }
+    button[type=submit] {
+      background-color:#828afd;
+      color: white;
+      padding: 14px 20px;
+      margin: 8px 0;
+      border: none;
+      cursor: pointer;
+      width: 40%;
+      font-family: 'Vollkorn', serif;
+      font-weight: bold;
+    }
+    .backbtn{
+        background-color:#828afd;
+      color: white;
+      padding: 14px 20px;
+      margin: 8px 0;
+      border: none;
+      cursor: pointer;
+      width: 200px;
+      font-family: 'Vollkorn', serif;
+      font-weight: bold;
+    }
+    .editheader{
+        display: flex;
+
+    }
+    @media(max-width:770px)and(min-width:499px) {
+        .createteam{
+            width:500px;
+            padding:0;
+        }
+    }
+    @media(max-width:500px){
+        .createteam{
+            width:300px;
+            padding:0;
+        }
+    }
+    
+    </style>
+        <div class="main">
+        <div class='editheader'>
+           
+            <span style='color:#646eff;font-size: 1.5em;padding: 1.5em 0 0 0;'>Update Team Details</span>
+        </div><br>
+        <form class="createteam" action="/teams/<%=team._id%>?_method=PUT" method="POST">
+            <div>
+                <label for="name"><i class="fas fa-users"></i>&nbsp&nbspName of the Team :</label><br>
+                <input type="text" id="name" name="name" placeholder="Add name for team..." value="<%=team.name%>" required>
+            </div><br>
+            <label for="description"><i class="fas fa-file-alt"></i>&nbsp&nbspDescription : </label><br>
+            <div>
+                <textarea type="text" id="description" rows="5"  name="description" placeholder="let people know what this team is all about" required><%=team.description%></textarea>
+            </div><br>
+            <center><button type='submit'>Update</button></center>
+        </form>
+        <a  href="/teams/<%=team._id%>"><button class="backbtn">Back to your team</button></a>
+        </div>
+    
+
+
+    
