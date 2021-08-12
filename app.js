@@ -10,10 +10,13 @@ const localStrategy = require('passport-local');
 const Member = require('./src/models/membersModel');
 const flash = require('connect-flash');
 const cookieParser = require('cookie-parser');
+
+
 //requiring routes
 const teamRoutes = require('./src/Routes/teamRoutes');
 const memberRoutes = require('./src/Routes/memberRoutes');
 const pollRoutes = require('./src/Routes/pollRoutes');
+const calenderRoutes = require('./src/Routes/calender');
 
 // connecting to database
 mongoose.connect('mongodb://localhost:27017/polling-app', {
@@ -78,7 +81,12 @@ passport.deserializeUser(Member.deserializeUser());
 app.use(teamRoutes);
 app.use(memberRoutes);
 app.use(pollRoutes);
+app.use(calenderRoutes);
 
+
+app.get('/', async(req,res)=>{
+    res.redirect('/login');
+})
 
 app.listen(3000, () => {
     console.log('Serving on port 3000');

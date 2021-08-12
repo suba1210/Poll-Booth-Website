@@ -4,7 +4,6 @@ const passport = require('passport');
 const Member = require("../models/membersModel");
 const {checkAuth} =require('../middlewares/checkAuth');
 const Poll = require('../models/pollModel');
-const { findById } = require('../models/membersModel');
 const Team = require('../models/teamModels');
 
 router.get('/register', (req,res)=>{
@@ -168,4 +167,3 @@ router.post('/notify',checkAuth,async(req,res)=>{
 
 
 module.exports = router;
-

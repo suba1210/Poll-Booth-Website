@@ -128,6 +128,7 @@
             <% let time = new Date(deadlineDate) , hour = ("0" + time.getHours()).slice(-2) ,minute = ("0" + time.getMinutes()).slice(-2) %> 
             <% time = [hour, minute].join(":") %> 
             <a  style='color:#551A8B' href="/teams/<%=team._id%>/poll/show/<%=poll._id%>"><div class='eachteam'><%=poll.title%><span style='float:right'>Deadline : <%=date%> at <%=time%>   </span></div></a>
+            <a href='/teamcalender/<%=team._id%>/polls/<%=poll._id%>' style='float:right;margin-left:10px;color:#551A8B'><i class="fas fa-calendar-plus"></i>&nbsp&nbspAdd to Google Calender</a><br>
 
 
             <% } else { %>
